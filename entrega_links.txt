@@ -1,0 +1,14 @@
+TECH CHALLENGE FIAP - FASE 4
+
+Link da aplicação preditiva Streamlit:
+https://tech-challenge---fase-4-lvabyfyvdbvsrbytztabt9.streamlit.app/
+
+Link do painel analítico:
+https://tech-challenge---fase-4-lvabyfyvdbvsrbytztabt9.streamlit.app/
+Observação: o painel está dentro da aba "Dashboard Analítico" no mesmo app Streamlit.
+
+Link do repositório GitHub:
+COLE_AQUI_O_LINK_DO_REPOSITORIO_GITHUB
+
+Resumo da entrega:
+Aplicação Streamlit com sistema preditivo de obesidade, dashboard analítico, principais insights para equipe médica, dados/dicionário e checklist da entrega.
