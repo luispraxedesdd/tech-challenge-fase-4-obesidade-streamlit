@@ -793,48 +793,6 @@ def render_data_tab(df: pd.DataFrame):
             st.info("Não há colunas numéricas para descrever.")
 
 
-def render_project_tab(model_path: str | None):
-    st.header("📘 Projeto, Entrega e Links")
-
-    st.subheader("Checklist do Tech Challenge")
-    checklist = pd.DataFrame(
-        [
-            ["Pipeline de ML com feature engineering e treinamento", "Precisa estar no GitHub, em notebook ou script."],
-            ["Modelo com assertividade acima de 75%", "Mostrar métrica no notebook/script e comentar no vídeo."],
-            ["Deploy do modelo em aplicação Streamlit", "Este app faz a parte preditiva."],
-            ["Painel analítico com insights", "A aba Dashboard Analítico cobre esse ponto."],
-            ["Arquivo .doc ou .txt com links", "Entregar link do app, link do painel e link do GitHub."],
-            ["Vídeo de 4 a 10 minutos", "Mostrar estratégia, predição e dashboard em visão de negócio."],
-        ],
-        columns=["Requisito", "Como atender"],
-    )
-    st.dataframe(checklist, use_container_width=True, hide_index=True)
-
-    st.subheader("Links")
-    st.markdown(f"**Aplicação preditiva:** {APP_URL}")
-    st.markdown(f"**Painel analítico:** {APP_URL} — abrir a aba **Dashboard Analítico**")
-    st.markdown(f"**GitHub:** {GITHUB_URL}")
-
-    st.subheader("Arquivos esperados na raiz do GitHub")
-    arquivos = pd.DataFrame(
-        [
-            ["app.py", "Aplicação Streamlit com predição + dashboard"],
-            ["requirements.txt", "Dependências do projeto"],
-            ["df_clean.csv ou Obesity.csv", "Base usada no dashboard"],
-            ["random.joblib", "Modelo treinado usado pela predição"],
-            ["pipeline_treinamento.py ou notebook.ipynb", "Pipeline de treino e métrica do modelo"],
-            ["README.md", "Explicação do projeto e como rodar"],
-            ["entrega_links.txt", "Links para upload na plataforma"],
-        ],
-        columns=["Arquivo", "Função"],
-    )
-    st.dataframe(arquivos, use_container_width=True, hide_index=True)
-
-    if model_path:
-        st.success(f"Modelo carregado com sucesso: `{model_path}`")
-    else:
-        st.warning("Modelo não localizado nesta execução. Confirme se `random.joblib` está na raiz do repositório.")
-
 
 # =============================================================================
 # MAIN
@@ -843,20 +801,19 @@ def render_project_tab(model_path: str | None):
 def main():
     raw_df = load_dataset()
     df = prepare_dataset(raw_df)
-    model, model_path = load_model()
+    model, _model_path = load_model()
 
     filtered_df = render_sidebar(df)
 
     st.title("⚖️ Modelo de ML para Auxílio de Diagnóstico de Obesidade")
     st.caption("Tech Challenge FIAP - Fase 4 | Machine Learning em Produção com Streamlit")
 
-    tab_pred, tab_dash, tab_insights, tab_data, tab_project = st.tabs(
+    tab_pred, tab_dash, tab_insights, tab_data = st.tabs(
         [
             "🔍 Sistema Preditivo",
             "📊 Dashboard Analítico",
             "🧠 Insights Médicos",
             "📁 Dados",
-            "📘 Entrega",
         ]
     )
 
@@ -872,8 +829,6 @@ def main():
     with tab_data:
         render_data_tab(df)
 
-    with tab_project:
-        render_project_tab(model_path)
 
 
 if __name__ == "__main__":
